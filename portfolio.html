@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UTHUBUTU AWARDS 2026</title>
+<title>Portfolio — UTHUBUTU AWARDS</title>
 <style>
   :root{
     --ink:#14110F;
@@ -128,148 +128,108 @@
   }
 
 
-  .hero{position:relative; overflow:hidden; padding:90px 24px 70px; text-align:center;}
-  .hero-collage{position:absolute; inset:0; z-index:0; overflow:hidden;}
-  .hero-collage .tile{position:absolute; border-radius:14px; opacity:0.28;}
-  .hero-collage::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,17,15,0.35) 0%, var(--ink) 82%);}
-  .hero-inner{position:relative; z-index:1;}
-  .eyebrow{display:inline-flex; align-items:center; gap:8px; background:rgba(240,180,41,0.12); border:1px solid var(--line); color:var(--gold); font-size:12px; font-weight:700; letter-spacing:0.08em; padding:8px 16px; border-radius:100px; margin-bottom:26px; text-transform:uppercase;}
-  .hero h1{font-size:54px; color:var(--cream); max-width:820px; margin:0 auto 22px;}
-  .hero h1 .gold{color:var(--gold);}
-  .hero p.lede{font-size:17px; color:var(--paper); opacity:0.85; max-width:560px; margin:0 auto 36px;}
-  .hero-ctas{display:flex; gap:14px; justify-content:center; margin-bottom:56px;}
-  .stat-strip{display:grid; grid-template-columns:repeat(3,1fr); max-width:720px; margin:0 auto; border-top:1px solid var(--line); padding-top:30px;}
-  .stat{text-align:center;}
-  .stat b{display:block; font-size:28px; color:var(--gold); font-weight:900;}
-  .stat span{font-size:11.5px; color:var(--paper); opacity:0.7; text-transform:uppercase; letter-spacing:0.05em;}
-  .preview-strip{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; max-width:1140px; margin:0 auto;}
-  .preview-strip .photo-tile{height:150px; border-radius:12px;}
-  .preview-strip .photo-tile:first-child{grid-row:span 2; height:auto;}
-  @media (max-width:820px){
-    .hero h1{font-size:32px;}
-    .preview-strip{grid-template-columns:repeat(2,1fr);}
-    .preview-strip .photo-tile:first-child{grid-row:span 1; height:150px;}
-  }
+  .filter-bar{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:44px;}
+  .filter-btn{background:transparent; border:1px solid var(--line); color:var(--paper); padding:9px 20px; border-radius:100px; font-size:13px; font-weight:600; cursor:pointer;}
+  .filter-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .winner-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1140px; margin:0 auto;}
+  .winner-card{background:var(--ink-card); border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  .winner-card .photo-tile{height:180px;}
+  .winner-card .wc-body{padding:20px;}
+  .winner-card h3{font-size:16px; margin-bottom:6px; color:var(--cream);}
+  .winner-card p{font-size:13px; color:var(--paper); opacity:0.7;}
+  @media (max-width:820px){ .winner-grid{grid-template-columns:1fr;} }
 
 </style>
 </head>
 <body>
 <nav>
   <div class="brand"><a href="index.html"><img src="data:image/jpeg;base64,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" alt="Tuzo za Uthubutu 2026"></a></div>
-  <div class="nav-links"><a href="index.html" class="active">Nyumbani</a><a href="historia.html">Historia</a><a href="portfolio.html">Portfolio</a><a href="gallery.html">Gallery</a><a href="index.html#wasiliana">Wasiliana Nasi</a></div>
+  <div class="nav-links"><a href="index.html">Nyumbani</a><a href="historia.html">Historia</a><a href="portfolio.html" class="active">Portfolio</a><a href="gallery.html">Gallery</a><a href="index.html#wasiliana">Wasiliana Nasi</a></div>
   <a href="index.html#wasiliana" class="btn btn-gold">Wasiliana Nasi</a>
 </nav>
 
-<section class="hero">
-  <div class="hero-collage" aria-hidden="true"><div class="tile" style="top:6%;left:3%;width:150px;height:190px;transform:rotate(-9deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:10%;left:17%;width:120px;height:150px;transform:rotate(7deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:58%;left:2%;width:140px;height:170px;transform:rotate(6deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:64%;left:15%;width:110px;height:140px;transform:rotate(-8deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:4%;left:80%;width:130px;height:160px;transform:rotate(8deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:60%;left:83%;width:150px;height:190px;transform:rotate(-6deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:28%;left:90%;width:120px;height:140px;transform:rotate(10deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div><div class="tile" style="top:82%;left:48%;width:110px;height:140px;transform:rotate(-9deg);"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label"></span></div></div></div>
-  <div class="hero-inner">
-    <div class="eyebrow">Kushukuru &middot; Kuthamini &middot; Kuhamasisha</div>
-    <h1 class="display">Ulithubutu kuchukua mkopo. <span class="gold">Sasa tukutambue.</span></h1>
-    <p class="lede">Tuzo Maalum kwa vijana, wanawake na watu wenye ulemavu waliothubutu kujenga biashara, ajira na maisha bora kwa mikopo ya asilimia 10 ya Halmashauri.</p>
-    <div class="hero-ctas">
-      <a href="portfolio.html" class="btn btn-gold btn-lg">Angalia Portfolio</a>
-      <a href="#vigezo" class="btn btn-outline btn-lg">Vigezo vya Kuomba</a>
-    </div>
-    <div class="stat-strip">
-      <div class="stat"><b>3</b><span>Makundi Yanayolengwa</span></div>
-      <div class="stat"><b>10%</b><span>Mikopo ya Halmashauri</span></div>
-      <div class="stat"><b>2026</b><span>Mwaka wa Tuzo</span></div>
-    </div>
-  </div>
+<section class="page-header">
+  <div class="eyebrow">Portfolio</div>
+  <h1 class="display" style="text-transform:none; font-size:38px;">Waliothubutu</h1>
+  <p class="lede">Hadithi za washindi na waombaji — majina, picha na maelezo halisi yataongezwa hapa hatua kwa hatua.</p>
 </section>
 
 <div class="ticket-divider"></div>
 
-<section class="section" id="makundi">
-  <div class="section-head">
-    <span class="section-tag">Nani Anastahili</span>
-    <h2 class="display" style="text-transform:none; font-size:30px;">Makundi Matatu Yanayotambuliwa</h2>
-    <p>Tuzo hii imeundwa mahususi kwa makundi haya matatu yaliyochukua hatua ya kimasoko.</p>
-  </div>
-  <div class="cat-grid">
-    <div class="cat-card">
-      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Vijana</span></div>
-      <div class="cat-body">
-        <span class="cat-badge">Kundi 1</span>
-        <h3>Vijana</h3>
-        <p>Vijana waliochukua mkopo wa asilimia 10 na kuutumia kuanzisha au kukuza biashara zao.</p>
-      </div>
-    </div>
-    <div class="cat-card">
-      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Wanawake</span></div>
-      <div class="cat-body">
-        <span class="cat-badge">Kundi 2</span>
-        <h3>Wanawake</h3>
-        <p>Wanawake waliothubutu kutumia fursa ya mikopo kujiongezea kipato na kujenga maisha bora.</p>
-      </div>
-    </div>
-    <div class="cat-card">
-      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mtu Mwenye Ulemavu</span></div>
-      <div class="cat-body">
-        <span class="cat-badge">Kundi 3</span>
-        <h3>Watu Wenye Ulemavu</h3>
-        <p>Watu wenye ulemavu walioonyesha uthubutu wa hali ya juu katika kujikwamua kiuchumi.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section band-light" id="vigezo">
-  <div class="section-head">
-    <span class="section-tag" style="background:var(--ink); color:var(--gold);">Vigezo vya Haraka</span>
-    <h2 class="display" style="text-transform:none; font-size:30px;">Je, Unastahili Kuomba?</h2>
-    <p>Hakikisha unatimiza vigezo hivi. Maombi yanawasilishwa kupitia Afisa Maendeleo wa Halmashauri yako.</p>
-  </div>
-  <div class="checklist">
-    <div class="check-item"><div class="check-mark">&#10003;</div><p>Umepokea mkopo wa asilimia 10 kutoka Halmashauri yako.</p></div>
-    <div class="check-item"><div class="check-mark">&#10003;</div><p>Umetumia mkopo huo kuanzisha au kukuza biashara halisi.</p></div>
-    <div class="check-item"><div class="check-mark">&#10003;</div><p>Uko ndani ya kundi mojawapo: kijana, mwanamke, au mtu mwenye ulemavu.</p></div>
-    <div class="check-item"><div class="check-mark">&#10003;</div><p>Una uthibitisho wa mkopo na maelezo mafupi ya mafanikio yaliyopatikana.</p></div>
-  </div>
-</section>
-
 <section class="section">
-  <div class="section-head">
-    <span class="section-tag">Portfolio</span>
-    <h2 class="display" style="text-transform:none; font-size:30px;">Baadhi ya Waliothubutu</h2>
-    <p>Hadithi za washindi na waombaji watakaoongezwa hivi karibuni.</p>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="Wote">Wote</button>
+    <button class="filter-btn" data-filter="Vijana">Vijana</button>
+    <button class="filter-btn" data-filter="Wanawake">Wanawake</button>
+    <button class="filter-btn" data-filter="Watu Wenye Ulemavu">Watu Wenye Ulemavu</button>
   </div>
-  <div class="cat-grid">
-    <div class="cat-card"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 1</span></div><div class="cat-body"><span class="cat-badge">Kundi 1</span><h3>Jina Litawekwa Hapa</h3><p>Muhtasari mfupi wa biashara na mafanikio utawekwa hapa.</p></div></div><div class="cat-card"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 2</span></div><div class="cat-body"><span class="cat-badge">Kundi 2</span><h3>Jina Litawekwa Hapa</h3><p>Muhtasari mfupi wa biashara na mafanikio utawekwa hapa.</p></div></div><div class="cat-card"><div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 3</span></div><div class="cat-body"><span class="cat-badge">Kundi 3</span><h3>Jina Litawekwa Hapa</h3><p>Muhtasari mfupi wa biashara na mafanikio utawekwa hapa.</p></div></div>
-  </div>
-  <div style="text-align:center; margin-top:36px;">
-    <a href="portfolio.html" class="btn btn-outline btn-lg">Angalia Portfolio Kamili</a>
+  <div class="winner-grid" id="winnerGrid">
+    <div class="winner-card" data-cat="Vijana">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 1</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Vijana</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Wanawake">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 2</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Wanawake</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Watu Wenye Ulemavu">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 3</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Watu Wenye Ulemavu</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Vijana">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 4</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Vijana</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Wanawake">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 5</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Wanawake</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Watu Wenye Ulemavu">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 6</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Watu Wenye Ulemavu</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Vijana">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 7</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Vijana</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Wanawake">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 8</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Wanawake</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div><div class="winner-card" data-cat="Watu Wenye Ulemavu">
+      <div class="photo-tile" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Picha ya Mshindi 9</span></div>
+      <div class="wc-body">
+        <span class="cat-badge" style="margin-bottom:10px;">Watu Wenye Ulemavu</span>
+        <h3>Jina Litawekwa Hapa</h3>
+        <p>Muhtasari mfupi wa biashara na mafanikio ya mwombaji huyu utawekwa hapa.</p>
+      </div>
+    </div>
   </div>
 </section>
-
-<section class="section band-light">
-  <div class="section-head">
-    <span class="section-tag" style="background:var(--ink); color:var(--gold);">Gallery</span>
-    <h2 class="display" style="text-transform:none; font-size:30px; color:var(--ink);">Picha za Matukio</h2>
-    <p style="color:var(--ink); opacity:0.65;">Picha halisi za makabidhiano na matukio zitaongezwa hapa.</p>
-  </div>
-  <div class="preview-strip">
-    <div class="photo-tile on-light" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Tukio 1</span></div>
-    <div class="photo-tile on-light" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Tukio 2</span></div>
-    <div class="photo-tile on-light" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Tukio 3</span></div>
-    <div class="photo-tile on-light" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Tukio 4</span></div>
-    <div class="photo-tile on-light" style=""><svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.3-2.5h5.4L16 7"/><circle cx="12" cy="13.5" r="3.3"/></svg><span class="ph-label">Tukio 5</span></div>
-  </div>
-  <div style="text-align:center; margin-top:36px;">
-    <a href="gallery.html" class="btn" style="background:var(--ink); color:var(--gold); padding:16px 32px; border-radius:100px; font-weight:700;">Angalia Gallery Kamili</a>
-  </div>
-</section>
-
-<div class="quote-block">
-  <p>Uthubutu ni kuchukua hatua hata pale ambapo hujui matokeo — sisi tunatambua wale waliothubutu.</p>
-  <span>Tuzo za Uthubutu 2026</span>
-</div>
-
-<div class="cta-banner">
-  <h2 class="display" style="text-transform:none;">Unataka kuombea mtu kutambuliwa?</h2>
-  <p>Wasiliana na Afisa Maendeleo wa Halmashauri yako, au tuandikie moja kwa moja.</p>
-  <a href="#wasiliana" class="btn btn-dark btn-lg">Wasiliana Nasi</a>
-</div>
 
 <footer id="wasiliana">
   <div class="wrap">
@@ -295,6 +255,18 @@
     <div class="foot-bottom">Imetengenezwa na AJPLUS Technology</div>
   </div>
 </footer>
-
+<script>
+document.querySelectorAll('.filter-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    var f = btn.getAttribute('data-filter');
+    document.querySelectorAll('.winner-card').forEach(function(card){
+      if(f==='Wote' || card.getAttribute('data-cat')===f){ card.style.display=''; }
+      else{ card.style.display='none'; }
+    });
+  });
+});
+</script>
 </body>
 </html>
