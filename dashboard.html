@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashibodi — UTHUBUTU AWARDS</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{
+    --ink:#14110F; --ink-card:#221D18; --gold:#F0B429; --gold-deep:#B9790C;
+    --cream:#FAF6EC; --paper:#F2EBD9; --clay:#C24914; --line:rgba(240,180,41,0.25);
+    --danger:#C24914; --success:#4CAF50;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--ink); color:var(--cream); min-height:100vh;
+  }
+  a{color:inherit;}
+  .hidden{display:none !important;}
+
+  /* LOGIN SCREEN */
+  #loginScreen{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .login-box{
+    background:var(--ink-card); border:1px solid var(--line); border-radius:20px;
+    padding:40px 32px; max-width:380px; width:100%; text-align:center;
+  }
+  .login-box h1{font-size:20px; margin-bottom:6px; color:var(--gold); font-weight:900;}
+  .login-box p.sub{font-size:13px; color:var(--paper); opacity:0.7; margin-bottom:28px;}
+  .field{margin-bottom:16px; text-align:left;}
+  .field label{display:block; font-size:12px; color:var(--paper); opacity:0.8; margin-bottom:6px; font-weight:600;}
+  .field input, .field select, .field textarea{
+    width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+    background:var(--ink); color:var(--cream); font-size:14px; font-family:inherit;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:1px solid var(--gold);}
+  .btn{
+    display:inline-block; padding:12px 24px; border-radius:100px; border:none;
+    font-size:14px; font-weight:700; cursor:pointer; font-family:inherit;
+  }
+  .btn-gold{background:var(--gold); color:var(--ink); width:100%;}
+  .btn-gold:hover{background:var(--gold-deep);}
+  .btn-outline{background:transparent; border:1px solid var(--line); color:var(--paper);}
+  .btn-danger{background:var(--clay); color:var(--cream); font-size:12px; padding:8px 16px;}
+  .err-msg{color:var(--clay); font-size:13px; margin-top:12px; min-height:16px;}
+
+  /* APP SHELL */
+  #appScreen{display:none; min-height:100vh;}
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; border-bottom:1px solid var(--line); background:var(--ink-card);
+  }
+  header .brand{font-weight:900; color:var(--gold); font-size:15px;}
+  header .who{font-size:12px; color:var(--paper); opacity:0.7;}
+  .layout{display:flex; min-height:calc(100vh - 64px);}
+  nav.sidebar{
+    width:220px; border-right:1px solid var(--line); padding:20px 0; flex-shrink:0;
+  }
+  nav.sidebar button{
+    display:block; width:100%; text-align:left; padding:14px 24px; background:none; border:none;
+    color:var(--paper); font-size:14px; cursor:pointer; font-family:inherit; border-left:3px solid transparent;
+  }
+  nav.sidebar button.active{color:var(--gold); border-left-color:var(--gold); background:rgba(240,180,41,0.06);}
+  main{flex:1; padding:32px; max-width:960px;}
+  main h2{font-size:22px; margin-bottom:6px;}
+  main p.desc{font-size:13px; color:var(--paper); opacity:0.7; margin-bottom:28px;}
+
+  .card{background:var(--ink-card); border:1px solid var(--line); border-radius:16px; padding:24px; margin-bottom:20px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .save-row{display:flex; align-items:center; gap:14px; margin-top:8px;}
+  .save-msg{font-size:13px; color:var(--success);}
+
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{text-align:left; padding:10px 12px; color:var(--gold); font-size:11px; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1px solid var(--line);}
+  td{padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  td img{width:48px; height:48px; object-fit:cover; border-radius:8px;}
+  .cat-pill{background:rgba(240,180,41,0.15); color:var(--gold); padding:3px 10px; border-radius:100px; font-size:11px;}
+
+  .thumb-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:12px; margin-top:16px;}
+  .thumb{position:relative; border-radius:10px; overflow:hidden; border:1px solid var(--line);}
+  .thumb img{width:100%; height:100px; object-fit:cover; display:block;}
+  .thumb button{
+    position:absolute; top:4px; right:4px; background:rgba(20,17,15,0.85); color:var(--clay);
+    border:none; border-radius:6px; width:24px; height:24px; cursor:pointer; font-size:14px;
+  }
+
+  @media (max-width:820px){
+    .layout{flex-direction:column;}
+    nav.sidebar{width:100%; display:flex; overflow-x:auto; padding:8px;}
+    nav.sidebar button{width:auto; white-space:nowrap; border-left:none; border-bottom:3px solid transparent;}
+    nav.sidebar button.active{border-left:none; border-bottom-color:var(--gold);}
+    .grid2{grid-template-columns:1fr;}
+    main{padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>UTHUBUTU AWARDS</h1>
+    <p class="sub">Dashibodi ya Usimamizi</p>
+    <div class="field">
+      <label>Barua Pepe</label>
+      <input type="email" id="loginEmail" placeholder="jina@mfano.co.tz">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••">
+    </div>
+    <button class="btn btn-gold" onclick="doLogin()">Ingia</button>
+    <div class="err-msg" id="loginError"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appScreen">
+  <header>
+    <div class="brand">UTHUBUTU AWARDS — Dashibodi</div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <span class="who" id="whoAmI"></span>
+      <button class="btn btn-outline" style="padding:8px 16px; font-size:12px;" onclick="doLogout()">Toka</button>
+    </div>
+  </header>
+  <div class="layout">
+    <nav class="sidebar">
+      <button class="nav-btn active" data-tab="settings" onclick="switchTab('settings')">📅 Tarehe &amp; Mawasiliano</button>
+      <button class="nav-btn" data-tab="portfolio" onclick="switchTab('portfolio')">🏆 Portfolio (Washindi)</button>
+      <button class="nav-btn" data-tab="gallery" onclick="switchTab('gallery')">🖼️ Gallery</button>
+    </nav>
+    <main>
+
+      <!-- SETTINGS TAB -->
+      <section id="tab-settings">
+        <h2>Tarehe ya Tuzo &amp; Mawasiliano</h2>
+        <p class="desc">Mabadiliko hapa yanaonekana moja kwa moja kwenye tovuti (countdown, namba za mawasiliano).</p>
+        <div class="card">
+          <div class="grid2">
+            <div class="field">
+              <label>Tarehe na Muda wa Tuzo</label>
+              <input type="datetime-local" id="settingsDate">
+            </div>
+            <div class="field">
+              <label>Simu</label>
+              <input type="text" id="settingsPhone">
+            </div>
+            <div class="field">
+              <label>WhatsApp</label>
+              <input type="text" id="settingsWhatsapp">
+            </div>
+            <div class="field">
+              <label>Barua Pepe</label>
+              <input type="text" id="settingsEmail">
+            </div>
+          </div>
+          <div class="save-row">
+            <button class="btn btn-gold" style="width:auto;" onclick="saveSettings()">Hifadhi Mabadiliko</button>
+            <span class="save-msg" id="settingsSaveMsg"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PORTFOLIO TAB -->
+      <section id="tab-portfolio" class="hidden">
+        <h2>Portfolio — Washindi</h2>
+        <p class="desc">Ongeza, hariri, au futa washindi wanaoonekana kwenye ukurasa wa Portfolio.</p>
+
+        <div class="card">
+          <h3 style="font-size:14px; color:var(--gold); margin-bottom:16px;">+ Ongeza Mshindi Mpya</h3>
+          <div class="grid2">
+            <div class="field"><label>Jina Kamili</label><input type="text" id="wName"></div>
+            <div class="field">
+              <label>Kundi</label>
+              <select id="wCategory">
+                <option>Vijana</option>
+                <option>Wanawake</option>
+                <option>Watu Wenye Ulemavu</option>
+              </select>
+            </div>
+            <div class="field"><label>Mkoa</label><input type="text" id="wRegion"></div>
+            <div class="field"><label>Halmashauri</label><input type="text" id="wCouncil"></div>
+            <div class="field"><label>Aina ya Biashara</label><input type="text" id="wBusiness"></div>
+            <div class="field"><label>Picha</label><input type="file" id="wPhoto" accept="image/*"></div>
+          </div>
+          <div class="field"><label>Hadithi/Muhtasari</label><textarea id="wStory" rows="3"></textarea></div>
+          <div class="save-row">
+            <button class="btn btn-gold" style="width:auto;" onclick="addWinner()">Ongeza Mshindi</button>
+            <span class="save-msg" id="winnerSaveMsg"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <table>
+            <thead><tr><th>Picha</th><th>Jina</th><th>Kundi</th><th>Halmashauri</th><th></th></tr></thead>
+            <tbody id="winnersTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- GALLERY TAB -->
+      <section id="tab-gallery" class="hidden">
+        <h2>Gallery — Picha za Matukio</h2>
+        <p class="desc">Pakia na simamia picha za matukio zinazoonekana kwenye ukurasa wa Gallery.</p>
+
+        <div class="card">
+          <div class="grid2">
+            <div class="field"><label>Picha</label><input type="file" id="gPhoto" accept="image/*"></div>
+            <div class="field"><label>Maelezo/Caption</label><input type="text" id="gCaption"></div>
+          </div>
+          <div class="save-row">
+            <button class="btn btn-gold" style="width:auto;" onclick="addGalleryImage()">Pakia Picha</button>
+            <span class="save-msg" id="gallerySaveMsg"></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="thumb-grid" id="galleryGrid"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  // ============ SUPABASE CONFIG ============
+  const SUPABASE_URL = "https://qjubdaqymaumbmbmhcfh.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqdWJkYXF5bWF1bWJtYm1oY2ZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4OTE5NzUsImV4cCI6MjEwMDQ2Nzk3NX0.N80HObnWjVt086_iHPFaQYYuizXTVrPRs-uwwFj_440";
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  let currentProfile = null;
+
+  // ============ AUTH ============
+  async function doLogin(){
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const errEl = document.getElementById('loginError');
+    errEl.textContent = "";
+    if(!email || !password){ errEl.textContent = "Jaza barua pepe na password."; return; }
+
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if(error){ errEl.textContent = "Barua pepe au password si sahihi."; return; }
+
+    const { data: profile, error: profErr } = await sb
+      .from('profiles').select('*').eq('id', data.user.id).single();
+
+    if(profErr || !profile){
+      errEl.textContent = "Akaunti hii haina ruhusa ya dashibodi.";
+      await sb.auth.signOut();
+      return;
+    }
+    currentProfile = profile;
+    showApp();
+  }
+
+  async function doLogout(){
+    await sb.auth.signOut();
+    currentProfile = null;
+    document.getElementById('appScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+  }
+
+  function showApp(){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
+    document.getElementById('whoAmI').textContent =
+      currentProfile.full_name + " (" + (currentProfile.role === 'ajplus_admin' ? 'AJPLUS Admin' : 'Tuzo Admin') + ")";
+    loadSettings();
+    loadWinners();
+    loadGallery();
+  }
+
+  // Check existing session on load
+  (async () => {
+    const { data: { session } } = await sb.auth.getSession();
+    if(session){
+      const { data: profile } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
+      if(profile){ currentProfile = profile; showApp(); }
+    }
+  })();
+
+  // ============ TABS ============
+  function switchTab(tab){
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-tab="'+tab+'"]').classList.add('active');
+    document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+    document.getElementById('tab-'+tab).classList.remove('hidden');
+  }
+
+  // ============ SETTINGS ============
+  async function loadSettings(){
+    const { data, error } = await sb.from('settings').select('*').eq('id', 1).single();
+    if(data){
+      const d = new Date(data.event_date);
+      const localIso = new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,16);
+      document.getElementById('settingsDate').value = localIso;
+      document.getElementById('settingsPhone').value = data.phone || '';
+      document.getElementById('settingsWhatsapp').value = data.whatsapp || '';
+      document.getElementById('settingsEmail').value = data.email || '';
+    }
+  }
+
+  async function saveSettings(){
+    const msgEl = document.getElementById('settingsSaveMsg');
+    const dateVal = document.getElementById('settingsDate').value;
+    const { error } = await sb.from('settings').update({
+      event_date: new Date(dateVal).toISOString(),
+      phone: document.getElementById('settingsPhone').value,
+      whatsapp: document.getElementById('settingsWhatsapp').value,
+      email: document.getElementById('settingsEmail').value,
+      updated_at: new Date().toISOString()
+    }).eq('id', 1);
+    msgEl.textContent = error ? "Hitilafu: " + error.message : "Imehifadhiwa ✓";
+    setTimeout(()=> msgEl.textContent = "", 3000);
+  }
+
+  // ============ PORTFOLIO / WINNERS ============
+  async function loadWinners(){
+    const { data } = await sb.from('winners').select('*').order('created_at', { ascending: false });
+    const tbody = document.getElementById('winnersTableBody');
+    tbody.innerHTML = "";
+    (data || []).forEach(w => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${w.photo_url ? `<img src="${w.photo_url}">` : '—'}</td>
+        <td>${w.full_name}</td>
+        <td><span class="cat-pill">${w.category}</span></td>
+        <td>${w.council || ''}</td>
+        <td><button class="btn btn-danger" onclick="deleteWinner('${w.id}')">Futa</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  async function addWinner(){
+    const msgEl = document.getElementById('winnerSaveMsg');
+    const name = document.getElementById('wName').value.trim();
+    if(!name){ msgEl.textContent = "Jaza jina la mshindi."; return; }
+
+    let photo_url = null;
+    const fileInput = document.getElementById('wPhoto');
+    if(fileInput.files.length > 0){
+      const file = fileInput.files[0];
+      const path = `${Date.now()}_${file.name}`;
+      const { error: upErr } = await sb.storage.from('winners').upload(path, file);
+      if(upErr){ msgEl.textContent = "Hitilafu ya picha: " + upErr.message; return; }
+      const { data: pub } = sb.storage.from('winners').getPublicUrl(path);
+      photo_url = pub.publicUrl;
+    }
+
+    const { error } = await sb.from('winners').insert({
+      full_name: name,
+      category: document.getElementById('wCategory').value,
+      region: document.getElementById('wRegion').value,
+      council: document.getElementById('wCouncil').value,
+      business_type: document.getElementById('wBusiness').value,
+      story: document.getElementById('wStory').value,
+      photo_url
+    });
+
+    if(error){ msgEl.textContent = "Hitilafu: " + error.message; return; }
+    msgEl.textContent = "Mshindi ameongezwa ✓";
+    document.getElementById('wName').value = '';
+    document.getElementById('wRegion').value = '';
+    document.getElementById('wCouncil').value = '';
+    document.getElementById('wBusiness').value = '';
+    document.getElementById('wStory').value = '';
+    fileInput.value = '';
+    setTimeout(()=> msgEl.textContent = "", 3000);
+    loadWinners();
+  }
+
+  async function deleteWinner(id){
+    if(!confirm("Una uhakika unataka kufuta mshindi huyu?")) return;
+    await sb.from('winners').delete().eq('id', id);
+    loadWinners();
+  }
+
+  // ============ GALLERY ============
+  async function loadGallery(){
+    const { data } = await sb.from('gallery_images').select('*').order('uploaded_at', { ascending: false });
+    const grid = document.getElementById('galleryGrid');
+    grid.innerHTML = "";
+    (data || []).forEach(g => {
+      const div = document.createElement('div');
+      div.className = 'thumb';
+      div.innerHTML = `<img src="${g.image_url}"><button onclick="deleteGalleryImage('${g.id}')">✕</button>`;
+      grid.appendChild(div);
+    });
+  }
+
+  async function addGalleryImage(){
+    const msgEl = document.getElementById('gallerySaveMsg');
+    const fileInput = document.getElementById('gPhoto');
+    if(fileInput.files.length === 0){ msgEl.textContent = "Chagua picha kwanza."; return; }
+    const file = fileInput.files[0];
+    const path = `${Date.now()}_${file.name}`;
+    const { error: upErr } = await sb.storage.from('gallery').upload(path, file);
+    if(upErr){ msgEl.textContent = "Hitilafu: " + upErr.message; return; }
+    const { data: pub } = sb.storage.from('gallery').getPublicUrl(path);
+
+    const { error } = await sb.from('gallery_images').insert({
+      image_url: pub.publicUrl,
+      caption: document.getElementById('gCaption').value
+    });
+    if(error){ msgEl.textContent = "Hitilafu: " + error.message; return; }
+    msgEl.textContent = "Picha imepakiwa ✓";
+    document.getElementById('gCaption').value = '';
+    fileInput.value = '';
+    setTimeout(()=> msgEl.textContent = "", 3000);
+    loadGallery();
+  }
+
+  async function deleteGalleryImage(id){
+    if(!confirm("Una uhakika unataka kufuta picha hii?")) return;
+    await sb.from('gallery_images').delete().eq('id', id);
+    loadGallery();
+  }
+</script>
+</body>
+</html>

@@ -347,9 +347,15 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  var target = new Date("2026-08-15T00:00:00");
+  var SUPABASE_URL = "https://qjubdaqymaumbmbmhcfh.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqdWJkYXF5bWF1bWJtYm1oY2ZoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4OTE5NzUsImV4cCI6MjEwMDQ2Nzk3NX0.N80HObnWjVt086_iHPFaQYYuizXTVrPRs-uwwFj_440";
+  var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  var target = new Date("2026-08-15T00:00:00Z"); // fallback ikiwa database haipatikani
+
   function update(){
     var now = new Date();
     var diff = target - now;
@@ -363,8 +369,19 @@
     document.getElementById("cd-mins").textContent = String(m).padStart(2,"0");
     document.getElementById("cd-secs").textContent = String(s).padStart(2,"0");
   }
-  update();
-  setInterval(update, 1000);
+
+  // Jaribu kupata tarehe halisi kutoka database; kama ikishindikana, tumia ile ya fallback
+  sb.from('settings').select('event_date, phone, whatsapp, email').eq('id', 1).single()
+    .then(function(res){
+      if(res.data && res.data.event_date){
+        target = new Date(res.data.event_date);
+      }
+    })
+    .catch(function(){})
+    .finally(function(){
+      update();
+      setInterval(update, 1000);
+    });
 })();
 </script>
 </body>
